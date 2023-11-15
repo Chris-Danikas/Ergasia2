@@ -1,6 +1,20 @@
 Town        	Average Yearly Rainfall (in millimeters)
-Athens 		405
-Thessaloniki 	450
-Patra 		920
-Heraklio 	610
-Larissa 	530
+Athens 405
+Thessaloniki 450
+Patra 920
+Heraklio 610
+Larissa 530
+Volos 720
+Ioannina 820
+Chania 660
+Chalkida 490
+Kavala 380
+Serres 420
+Rhodos 570
+Agrinio 720
+Katerini 550
+Lamia 470
+Trikala 480
+Veria 580
+Kalamata 720
+Kozani 490
