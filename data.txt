@@ -1,0 +1,6 @@
+Town        	Average Yearly Rainfall (in millimeters)
+Athens 		405
+Thessaloniki 	450
+Patra 		920
+Heraklio 	610
+Larissa 	530
