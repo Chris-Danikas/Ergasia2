@@ -11,6 +11,7 @@ program rainfall
     do i = 1, N
        print *, town(i), rain(i)
     end do
+   print *, "Average Rainfall: ", average_rainfall(rain, N)
  
  contains
  
@@ -39,4 +40,20 @@ program rainfall
  
        close(1)
     end subroutine read_data
+
+   real function average_rainfall(rain, N)
+   implicit none
+   integer, intent(in) :: rain(:), N
+
+   integer :: i
+   real :: total_rainfall
+
+   total_rainfall = 0.0
+   do i = 1, N
+      total_rainfall = total_rainfall + real(rain(i))
+   end do
+
+   average_rainfall = total_rainfall / real(N)
+   end function average_rainfall
+
  end program rainfall
