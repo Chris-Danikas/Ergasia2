@@ -1,59 +1,51 @@
 program rainfall
-    implicit none
-    character(20) :: town(50)
-    integer :: rain(50)
-    integer :: i, N
- 
-    ! Κλήση της υπορουτίνας για δυναμικό διάβασμα
-    call read_data(50, town, rain, N)
- 
-    ! Εκτύπωση περιεχομένων πινάκων
-    do i = 1, N
-       print *, town(i), rain(i)
-    end do
-   print *, "Average Rainfall: ", average_rainfall(rain, N)
- 
- contains
- 
-    subroutine read_data(Nmax, T, R, N)
-       implicit none
-       integer, intent(in) :: Nmax
-       character(20), dimension(Nmax), intent(out) :: T
-       integer, dimension(Nmax), intent(out) :: R
-       integer, intent(out) :: N
-       integer :: i
- 
-       open(1, file='data.txt', status='old')
- 
-       ! Διάβασμα της πρώτης γραμμής (τίτλων)
-       read(1, *)
- 
-       ! Διάβασμα δεδομένων και αποθήκευση στους πίνακες
-       N = 0
-       do i = 1, Nmax
-          if (read(1, *, iostat=N) /= 0) then
-             exit
-          end if
-          N = N + 1
-          read(1, *) T(N), R(N)
-       end do
- 
-       close(1)
-    end subroutine read_data
-
-   real function average_rainfall(rain, N)
    implicit none
-   integer, intent(in) :: rain(:), N
+   integer,parameter::Nmax=50
+   integer::i,N
+   character(20)::town(Nmax)
+   integer::rain(Nmax)
+   
+      ! Κλήση της υπορουτίνας για δυναμικό διάβασμα
+     call read_data(town,rain,Nmax,N)
+     ! Εκτύπωση περιεχομένων πινάκων
+     do i=1,N
+       print*,town(i),rain(i)
+     end do
+   
+     print*,'Average Rainfall:',average(rain,Nmax,N)
+     
+   contains
+     real function average(R,Nmax,N)
 
-   integer :: i
-   real :: total_rainfall
+      integer,intent(in)::Nmax
+      integer,intent(in)::R(Nmax)
+      integer,intent(in)::N
+      integer::i,s
+         s=0
+         do i=1,N
+            s=s+R(i)
+         end do
+         average = s/real(N)
+     end function
+     
+      subroutine read_data(T,R,Nmax,N)
+         integer,intent(in)::Nmax
+         character(20),intent(out)::T(Nmax)
+         integer,intent(out)::R(Nmax)
+         integer,intent(out)::N
+         integer::k,st
 
-   total_rainfall = 0.0
-   do i = 1, N
-      total_rainfall = total_rainfall + real(rain(i))
-   end do
-
-   average_rainfall = total_rainfall / real(N)
-   end function average_rainfall
-
- end program rainfall
+         open(10,file='data.txt')
+         ! Διάβασμα της πρώτης γραμμής (τίτλων)
+         read(10,*)
+         k=1
+         ! Διάβασμα δεδομένων και αποθήκευση στους πίνακες
+         do 
+            read(10,*,iostat=st) T(k),R(k)
+            if (st/=0) exit
+            k=k+1
+         end do  
+         close(10)
+          N=k-1
+      end subroutine
+   end program
